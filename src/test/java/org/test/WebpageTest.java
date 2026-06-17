@@ -3,7 +3,11 @@ package org.test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
-import org.testng.annotations.*;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
+
+import java.time.Duration;
 
 public class WebpageTest {
 
@@ -16,6 +20,8 @@ public class WebpageTest {
 
         driver.manage().window().maximize();
 
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+
         driver.get("https://shashankuppar.github.io/EXP_2_16-6/");
     }
 
@@ -26,14 +32,16 @@ public class WebpageTest {
 
         String expected = "Webpage Design";
 
-        Assert.assertEquals(actual, expected);
+        System.out.println("Actual Title: " + actual);
 
+        Assert.assertEquals(actual, expected);
     }
 
     @AfterTest
     public void closeBrowser() {
 
-        driver.quit();
-
+        if (driver != null) {
+            driver.quit();
+        }
     }
 }
